@@ -59,7 +59,11 @@ function App() {
     <div className="App">
       {loading && (
         <div className="example">
-          <Spin className="spinner" />
+          <Spin
+            className="spinner"
+            size="large"
+            tip="Please wait while loading"
+          />
         </div>
       )}
       {errorMessage.length > 1 && (
