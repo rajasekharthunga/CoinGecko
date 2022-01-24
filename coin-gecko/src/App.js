@@ -18,6 +18,12 @@ function App() {
       .then(response => {
         setCoinsList(response.data);
         setLoading(false);
+        setErrorMessage("");
+      })
+      .catch(error => {
+        setErrorMessage(error.message);
+        console.log("There is some error", error);
+        setLoading(false);
       });
   }, []);
 
@@ -56,7 +62,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className={coinsList.length > 1 ? "App" : "App no-data"}>
       {loading && (
         <div className="example">
           <Spin
@@ -67,12 +73,7 @@ function App() {
         </div>
       )}
       {errorMessage.length > 1 && (
-        <Alert
-          message="Error"
-          description={errorMessage}
-          type="error"
-          showIcon
-        />
+        <Alert description={errorMessage} type="error" showIcon />
       )}
       {coinsList.map(e => (
         <CardContainer key={e.id} coin={e} clickHandler={clickHandler} />
